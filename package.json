@@ -1,0 +1,33 @@
+{
+  "name": "buildit",
+  "version": "0.0.1",
+  "author": "Evan Lindsey",
+  "scripts": {
+    "build-prod": "gulp build --prod",
+    "build": "gulp build",
+    "serve": "gulp build && gulp serve"
+  },
+  "dependencies": {
+    "page": "^1.8.6"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.1.1",
+    "css-loader": "^1.0.0",
+    "file-loader": "^1.1.11",
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.5.0",
+    "gulp-htmlmin": "^4.0.0",
+    "html-loader": "^0.5.5",
+    "node-sass": "^4.9.3",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.22.1",
+    "ts-loader": "^4.4.2",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.9.2",
+    "typescript": "^3.0.1",
+    "webpack": "^4.16.5",
+    "webpack-stream": "^5.1.1",
+    "yargs": "^12.0.1"
+  }
+}
