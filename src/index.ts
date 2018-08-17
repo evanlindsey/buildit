@@ -11,5 +11,6 @@ import './index.scss';
   };
   router('/', loadPage.home);
   router.start({});
+  router('/');
 
 })();
