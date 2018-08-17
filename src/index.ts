@@ -10,6 +10,7 @@ import './index.scss';
     home: () => new Home(),
   };
   router('/', loadPage.home);
+  router.base('/buildit');
   router.start({});
   router('/');
 
