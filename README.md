@@ -8,5 +8,5 @@ Using:
 - [webpack](https://github.com/webpack/webpack)
 
 Included libraries:
-- [Page.js](https://github.com/visionmedia/page.js)
+- [director](https://github.com/flatiron/director)
   - For page routing.

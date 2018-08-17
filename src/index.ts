@@ -1,5 +1,4 @@
-import page from 'page';
-const router = page;
+import { Router } from 'director/build/director';
 
 import { Home } from './pages/home/home';
 import './index.scss';
@@ -9,9 +8,8 @@ import './index.scss';
   const loadPage = {
     home: () => new Home(),
   };
-  router('/', loadPage.home);
-  router.base('/buildit');
-  router.start({});
-  router('/');
+  new Router({
+    '/': loadPage.home,
+  }).init('/');
 
 })();

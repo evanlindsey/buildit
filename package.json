@@ -8,7 +8,7 @@
     "serve": "gulp build && gulp serve"
   },
   "dependencies": {
-    "page": "^1.8.6"
+    "director": "^1.2.8"
   },
   "devDependencies": {
     "autoprefixer": "^9.1.1",
