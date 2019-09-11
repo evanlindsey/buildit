@@ -2,6 +2,11 @@ module.exports = {
   output: {
     filename: 'app.bundle.js'
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
+  },
   resolve: {
     extensions: ['.js', '.ts']
   },

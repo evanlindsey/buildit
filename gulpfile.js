@@ -1,48 +1,49 @@
-const gulp = require('gulp'),
-  htmlmin = require('gulp-htmlmin'),
+const { dest, series, src, watch } = require('gulp'),
   connect = require('gulp-connect'),
+  htmlmin = require('gulp-htmlmin'),
   webpack = require('webpack'),
   webpackStream = require('webpack-stream'),
   argv = require('yargs').argv;
 
+const config = require('./webpack.config.js');
+
 const inputFolder = './src/',
   outputFolder = './docs/',
+  tsEntry = inputFolder + 'index.ts',
   tsSource = inputFolder + '**/**/*.ts',
   sassSource = inputFolder + '**/**/*.scss',
-  htmlSource = inputFolder + '**/**/*.html',
   htmlEntry = inputFolder + 'index.html',
-  htmlWatch = [htmlSource, "!" + htmlEntry],
-  tsEntry = inputFolder + 'index.ts';
+  htmlSource = inputFolder + '**/**/*.html',
+  htmlWatch = [htmlSource, "!" + htmlEntry];
 
-gulp.task('bundle', () => {
-  var isProd = argv.prod !== undefined;
-  var config = require('./webpack.config.js');
+function bundle() {
+  const isProd = argv.prod !== undefined;
   config.mode = isProd ? 'production' : 'development';
   config.devtool = isProd ? 'cheap-module-source-map' : 'inline-source-map';
-  return gulp.src(tsEntry)
+  return src(tsEntry)
     .pipe(webpackStream(config), webpack)
-    .pipe(gulp.dest(outputFolder))
+    .pipe(dest(outputFolder))
     .pipe(connect.reload());
-});
+}
 
-gulp.task('html', () => {
-  return gulp.src(htmlEntry)
+function template() {
+  return src(htmlEntry)
     .pipe(htmlmin({ collapseWhitespace: true }))
-    .pipe(gulp.dest(outputFolder))
+    .pipe(dest(outputFolder))
     .pipe(connect.reload());
-});
+}
 
-gulp.task('connect', () => {
+function reload() {
   connect.server({
     root: outputFolder,
     livereload: true
   });
-});
+}
 
-gulp.task('watch', () => {
-  gulp.watch([tsSource, sassSource, htmlWatch], ['bundle']);
-  gulp.watch(htmlEntry, ['html']);
-});
+function monitor() {
+  watch([tsSource, sassSource, htmlWatch], ['bundle']);
+  watch(htmlEntry, ['html']);
+}
 
-gulp.task('build', ['bundle', 'html']);
-gulp.task('serve', ['connect', 'watch']);
+exports.build = series(bundle, template);
+exports.serve = series(reload, monitor);
